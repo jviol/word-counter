@@ -1,4 +1,4 @@
-package io.github.jviol.wordcount;
+package io.github.jviol.wordcount.io;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,7 +15,7 @@ public class FileWriter {
         this.outputDir = outputDir;
     }
 
-    void writeExcludedWordCounts(Map<String, Integer> excludedWordCounts) throws IOException {
+    public void writeExcludedWordCounts(Map<String, Integer> excludedWordCounts) throws IOException {
         List<String> lines = excludedWordCounts.entrySet().stream()
                 .map(e -> e.getKey() + ": " + e.getValue())
                 .toList();
@@ -26,7 +26,7 @@ public class FileWriter {
         System.out.printf("Wrote %d lines to %s.%n", lines.size(), fileName);
     }
 
-    void writeToOutputFiles(Map<String, Integer> wordCounts) throws IOException {
+    public void writeToOutputFiles(Map<String, Integer> wordCounts) throws IOException {
         Map<Character, List<String>> linesByFirstLetter = wordCounts.entrySet().stream()
                 .map(entry -> entry.getKey() + ": " + entry.getValue())
                 .collect(Collectors.groupingBy(line -> line.charAt(0)));
