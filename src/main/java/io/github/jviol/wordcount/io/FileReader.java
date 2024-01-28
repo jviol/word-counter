@@ -34,22 +34,19 @@ public class FileReader implements Iterable<String> {
                         return false;
                     }
                 }
-                return scanner.hasNext() || files.hasNext();
+                while (!scanner.hasNext()) {
+                    scanner = nextScanner();
+                    if (scanner == null) {
+                        return false;
+                    }
+                }
+                return true;
             }
 
             @Override
             public String next() {
-                if (scanner == null) {
-                    scanner = nextScanner();
-                    if (scanner == null) {
-                        throw new NoSuchElementException();
-                    }
-                }
-                if (!scanner.hasNext()) {
-                    scanner = nextScanner();
-                    if (scanner == null) {
-                        throw new NoSuchElementException();
-                    }
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
                 }
                 return scanner.next();
             }
